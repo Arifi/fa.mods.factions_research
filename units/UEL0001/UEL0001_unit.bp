@@ -1,6 +1,6 @@
 UnitBlueprint {
 Merge = true,
-BlueprintId = "ual0106",
+BlueprintId = "uel0001",
     
 	Economy = {
         -- If modifying Energy or Mass costs, modify Score component in aibrain.lua search battleResults
@@ -12,7 +12,6 @@ BlueprintId = "ual0106",
             'BUILTBYCOMMANDER UEF',
             'BUILTBYTIER2COMMANDER UEF',
             'BUILTBYTIER3COMMANDER UEF',
-			'BUILTBYCOMMANDER CYBRAN',
         },
         MaxBuildDistance = 10,
         NaturalProducer = true,
@@ -46,6 +45,22 @@ BlueprintId = "ual0106",
             UpgradeUnitAmbientBones = {
                 'UEL0001',
             },
+        },
+		CybranEngineeringRemove = {
+            BuildCostEnergy = 1,
+            BuildCostMass = 1,
+            BuildTime = 0.1,
+            BuildableCategoryAdds = 'BUILTBYCOMMANDER CYBRAN',
+            Icon = 'aes',
+            Name = 'Cybran T1 Engineering Suite',
+            HideBones = {
+                'Left_Upgrade',
+            },
+			Prerequisite = 'CybranEngineering',
+			RemoveEnhancements = {
+                'CybranEngineering',
+            },
+            Slot = 'LCH',
         },
         AdvancedEngineering = {
             BuildCostEnergy = 18000,
