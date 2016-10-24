@@ -1,338 +1,8 @@
 UnitBlueprint {
-    AI = {
-        GuardRadius = 10,
-        GuardScanRadius = 31.5,
-        TargetBones = {
-            'Head',
-            'Right_Arm_B01',
-            'Left_Arm_B01',
-            'Torso',
-            'Left_Leg_B01',
-            'Right_Leg_B01',
-        },
-    },
-    Audio = {
-        CaptureLoop = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0001_Capture_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        CommanderArrival = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0001_Gate_In',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Construct = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0001_Construct_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        ConstructLoop = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0001_Construct_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        EnhanceEnd = Sound {
-            Bank = 'UnitsGlobal',
-            Cue = 'GLB_Enhance_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        EnhanceFail = Sound {
-            Bank = 'UnitsGlobal',
-            Cue = 'GLB_Enhance_Fail',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        EnhanceLoop = Sound {
-            Bank = 'UnitsGlobal',
-            Cue = 'GLB_Enhance_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        EnhanceStart = Sound {
-            Bank = 'UnitsGlobal',
-            Cue = 'GLB_Enhance_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        FootFallGeneric = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0001_Move_Step',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        FootFallGenericSeabed = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0001_Move_UW_Step',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'Explosions',
-            Cue = 'UEF_Nuke_Impact',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        ReclaimLoop = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0001_Reclaim_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartCapture = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0001_Capture_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0001_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartReclaim = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0001_Reclaim_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0001_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        TeleportChargingAtDestination = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0001_Reclaim_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        TeleportChargingAtUnit = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0001_Construct_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        TeleportIn = Sound {
-            Bank = 'Impacts',
-            Cue = 'UEF_Expl_Lrg_Naval',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Commander',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-    },
-    Buffs = {
-        Regen = {
-            Level1 = 3,
-            Level2 = 6,
-            Level3 = 9,
-            Level4 = 12,
-            Level5 = 15,
-        },
-    },
-    Categories = {
-        'PRODUCTSC1',
-        'SELECTABLE',
-        'UEF',
-        'MOBILE',
-        'ECONOMIC',
-        'COMMAND',
-        'MASSPRODUCTION',
-        'MASSFABRICATION',
-        'ENERGYPRODUCTION',
-        'REPAIR',
-        'ENGINEER',
-        'CONSTRUCTION',
-        'RECLAIM',
-        'CAPTURE',
-        'DIRECTFIRE',
-        'PODSTAGINGPLATFORM',
-        'SILO',
-        'VERIFYMISSILEUI',
-        'LAND',
-        'VISIBLETORECON',
-        'PATROLHELPER',
-        'SHOWQUEUE',
-        'OVERLAYDIRECTFIRE',
-        'OVERLAYINDIRECTFIRE',
-        'OVERLAYOMNI',
-        'OVERLAYDEFENSE',
-        'BUBBLESHIELDSPILLOVERCHECK',
-        'SHOWATTACKRETICLE',
-    },
-    Defense = {
-        AirThreatLevel = 0,
-        ArmorType = 'Commander',
-        EconomyThreatLevel = 5,
-        Health = 12000,
-        MaxHealth = 12000,
-        RegenRate = 10,
-        SubThreatLevel = 0,
-        SurfaceThreatLevel = 75,
-    },
-    Description = '<LOC uel0001_desc>Armored Command Unit',
-    Display = {
-        Abilities = {
-            '<LOC ability_amphibious>Amphibious',
-            '<LOC ability_customizable>Customizable',
-            '<LOC ability_engineeringsuite>Engineering Suite',
-            '<LOC ability_notcap>Not Capturable',
-            '<LOC ability_omni>Omni Sensor',
-            '<LOC ability_deathaoe>Volatile',
-        },
-
-        -- AnimationIdle = '/units/uel0001/uel0001_a002.sca',
-        AnimationWalk = '/units/uel0001/uel0001_a001.sca',
-        AnimationWalkRate = 1.7,
-        AttackReticleSize = 55,
-        DamageEffects = {
-            {
-                Bone = 0,
-                OffsetX = 0.25,
-                OffsetY = 0.75,
-                OffsetZ = 0,
-            },
-            {
-                Bone = 0,
-                OffsetX = -0.25,
-                OffsetY = 0.75,
-                OffsetZ = 0,
-            },
-            {
-                Bone = 0,
-                OffsetX = -0.35,
-                OffsetY = 0.1,
-                OffsetZ = 0,
-            },
-        },
-        IdleEffects = {
-            Seabed = {
-                Effects = {
-                    {
-                        Bones = {
-                            'Left_Arm_B02',
-                            'Right_Arm_B02',
-                            'Left_Arm_Muzzle',
-                            'Right_Arm_Muzzle',
-                        },
-                        Type = 'UnderWater01',
-                    },
-                },
-            },
-        },
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {
-                    LODCutoff = 175,
-                    ShaderName = 'Unit',
-                },
-            },
-        },
-        MovementEffects = {
-            Land = {
-                Effects = {
-                    {
-                        Bones = {
-                            'Left_Foot',
-                            'Right_Foot',
-                        },
-                        Type = 'GroundKickup01',
-                    },
-                },
-                Footfall = {
-                    Bones = {
-                        {
-                            FootBone = 'Left_Footfall',
-                            HipBone = 'Left_Leg_B01',
-                            KneeBone = 'Left_Leg_B02',
-                            Tread = {
-                                TreadMarks = 'CommanderPrint_albedo',
-                                TreadMarksSizeX = 0.6,
-                                TreadMarksSizeZ = 0.6,
-                                TreadOffset = {
-                                    0.32,
-                                    0,
-                                    0.55,
-                                },
-                            },
-                            Type = 'FootFall02',
-                        },
-                        {
-                            FootBone = 'Left_Footfall01',
-                            HipBone = 'Right_Leg_B01',
-                            KneeBone = 'Right_Leg_B02',
-                            Tread = {
-                                TreadMarks = 'CommanderPrint_albedo',
-                                TreadMarksSizeX = 0.6,
-                                TreadMarksSizeZ = 0.6,
-                                TreadOffset = {
-                                    -0.45,
-                                    0,
-                                    0.6,
-                                },
-                            },
-                            Type = 'FootFall02',
-                        },
-                    },
-                },
-            },
-            Seabed = {
-                Effects = {
-                    {
-                        Bones = {
-                            'Torso',
-                            'Left_Arm_B02',
-                            'Right_Arm_B02',
-                            'Left_Arm_Muzzle',
-                            'Right_Arm_Muzzle',
-                            'Left_Foot',
-                            'Right_Foot',
-                        },
-                        Type = 'UnderWater01',
-                    },
-                },
-            },
-        },
-        PlaceholderMeshName = 'UXB0000',
-        SpawnRandomRotation = true,
-        TeleportEffects = {
-            ChargeFxAtUnitBones = {
-                {
-                    Bone = 'Torso',
-                    Offset = {
-                        0,
-                        0,
-                        -0.1,
-                    },
-                },
-            },
-            FxOffsetX = 0,
-            FxOffsetY = 0,
-            FxOffsetZ = -0.45,
-            FxSizeX = 2.31,
-            FxSizeY = 2.31,
-            FxSizeZ = 2.42,
-            PlayChargeFxAtDestination = true,
-            PlayChargeFxAtUnit = true,
-            PlayTeleportOutFx = true,
-            PlayTeleportInFx = true,
-        },
-        TransportAnimation = {
-            {
-                Animation = '/units/UEL0001/UEL0001_afold.sca',
-                Weight = 100,
-            },
-        },
-        TransportDropAnimation = {
-            {
-                Animation = '/units/UEL0001/UEL0001_aunfold.sca',
-                Weight = 100,
-            },
-        },
-        UniformScale = 0.105,
-        WarpInEffect = {
-            HideBones = {
-                'Back_Upgrade_B01',
-                'Right_Upgrade',
-                'Left_Upgrade',
-            },
-            PhaseShieldMesh = '/units/uel0001/UEL0001_PhaseShield_mesh',
-        },
-    },
-    Economy = {
+Merge = true,
+BlueprintId = "ual0106",
+    
+	Economy = {
         -- If modifying Energy or Mass costs, modify Score component in aibrain.lua search battleResults
         BuildCostEnergy = 5000000,
         BuildCostMass = 18000,
@@ -342,6 +12,7 @@ UnitBlueprint {
             'BUILTBYCOMMANDER UEF',
             'BUILTBYTIER2COMMANDER UEF',
             'BUILTBYTIER3COMMANDER UEF',
+			'BUILTBYCOMMANDER CYBRAN',
         },
         MaxBuildDistance = 10,
         NaturalProducer = true,
@@ -355,6 +26,27 @@ UnitBlueprint {
         TeleportTimeMod = 0.0001
     },
     Enhancements = {
+		CybranEngineering = {
+            BuildCostEnergy = 0,
+            BuildCostMass = 0,
+            BuildTime = 10,
+            BuildableCategoryAdds = 'BUILTBYCOMMANDER CYBRAN',
+            Icon = 'aes',
+            Name = 'Cybran T1 Engineering Suite',
+            ShowBones = {
+                'Left_Upgrade',
+            },
+            Slot = 'LCH',
+            UpgradeEffectBones = {
+                'Left_Upgrade',
+                'Left_Upgrade_Muzzle',
+                'Left_Arm_Muzzle',
+                'Left_Arm_Barrel',
+            },
+            UpgradeUnitAmbientBones = {
+                'UEL0001',
+            },
+        },
         AdvancedEngineering = {
             BuildCostEnergy = 18000,
             BuildCostMass = 720,
