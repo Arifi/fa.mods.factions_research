@@ -20,7 +20,7 @@ UnitBlueprint {
             BuildTime = 10,
             BuildableCategoryAdds = 'FACTORY TECH1 LAND STRUCTURE UEF',
             Icon = 'aes',
-            Name = 'Cybran T1 Land Factory',
+            Name = 'UEF T1 Land Factory',
             ShowBones = {
                 'Left_Upgrade',
             },
@@ -122,45 +122,6 @@ UnitBlueprint {
 			RemoveEnhancements = {
                 'SeraEngineering',
 				'SeraEngineeringRemove',
-            },
-            Slot = 'LCH',
-        },
-		
-        AdvancedEngineering = {
-            BuildCostEnergy = 18000,
-            BuildCostMass = 720,
-            BuildTime = 900,
-            BuildableCategoryAdds = 'BUILTBYTIER2COMMANDER CYBRAN',
-            Icon = 'aes',
-            Name = '<LOC enhancements_0077>Tech 2 Engineering Suite',
-            NewBuildRate = 42,
-            NewHealth = 2000,
-            ShowBones = {
-                'Right_Upgrade',
-            },
-            Slot = 'LCH',
-            UpgradeEffectBones = {
-                'Right_Upgrade',
-                'Right_Turret',
-                'Right_Muzzle_02',
-            },
-            UpgradeUnitAmbientBones = {
-                'URL0001',
-            },
-        },
-        AdvancedEngineeringRemove = {
-            BuildCostEnergy = 1,
-            BuildCostMass = 1,
-            BuildTime = 0.1,
-            HideBones = {
-                'Right_Upgrade',
-            },
-            Icon = 'aes',
-            Name = '<LOC enhancements_0078>Remove Engineering Suite',
-            Prerequisite = 'AdvancedEngineering',
-            RemoveEnhancements = {
-                'AdvancedEngineering',
-                'AdvancedEngineeringRemove',
             },
             Slot = 'LCH',
         },
