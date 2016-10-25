@@ -6,11 +6,11 @@ UEL0001 = Class(oldUEL0001) {
 	OnCreate = function(self)
 		oldUEL0001.OnCreate(self)
 		--ACUUnit.OnCreate(self)
-		
+		self:AddBuildRestriction(categories.CYBRAN)
 	end,
 
     CreateEnhancement = function(self, enh)
-        ACUUnit.CreateEnhancement(self, enh)
+        oldUEL0001.CreateEnhancement(self, enh)
 
         local bp = self:GetBlueprint().Enhancements[enh]
         if not bp then return end
