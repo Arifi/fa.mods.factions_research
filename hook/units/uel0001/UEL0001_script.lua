@@ -8,6 +8,7 @@ UEL0001 = Class(oldUEL0001) {
 		--ACUUnit.OnCreate(self)
 		self:AddBuildRestriction(categories.CYBRAN)
 		self:AddBuildRestriction(categories.AEON)
+		self:AddBuildRestriction(categories.SERAPHIM)
 	end,
 	
 	CreateBuildEffects = function( self, unitBeingBuilt, order )
@@ -66,6 +67,19 @@ UEL0001 = Class(oldUEL0001) {
 			self:AddBuildRestriction(categories.AEON)
             -- Engymod addition: After fiddling with build restrictions, update engymod build restrictions
             self:updateBuildRestrictions()
+		elseif enh =='SeraEngineering' then
+            local cat = ParseEntityCategory(bp.BuildableCategoryAdds)
+            self:RemoveBuildRestriction(cat)
+            -- Engymod addition: After fiddling with build restrictions, update engymod build restrictions
+            self:updateBuildRestrictions()
+        elseif enh =='SeraEngineeringRemove' then
+            local bp = self:GetBlueprint().Economy.BuildRate
+            if not bp then return end
+			self:AddBuildRestriction(categories.SERAPHIM)
+            -- Engymod addition: After fiddling with build restrictions, update engymod build restrictions
+            self:updateBuildRestrictions()
+			-- ***
+			--
         elseif enh =='AdvancedEngineeringRemove' then
             local bp = self:GetBlueprint().Economy.BuildRate
             if not bp then return end
@@ -75,6 +89,7 @@ UEL0001 = Class(oldUEL0001) {
 			--
 			self:AddBuildRestriction(categories.CYBRAN)
 			self:AddBuildRestriction(categories.AEON)
+			self:AddBuildRestriction(categories.SERAPHIM)
 			--
             if Buff.HasBuff( self, 'UEFACUT2BuildRate' ) then
                 Buff.RemoveBuff( self, 'UEFACUT2BuildRate' )
@@ -92,6 +107,7 @@ UEL0001 = Class(oldUEL0001) {
 			--
 			self:AddBuildRestriction(categories.CYBRAN)
 			self:AddBuildRestriction(categories.AEON)
+			self:AddBuildRestriction(categories.SERAPHIM)
 			--
             -- Engymod addition: After fiddling with build restrictions, update engymod build restrictions
             self:updateBuildRestrictions()
