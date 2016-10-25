@@ -34,7 +34,7 @@ UnitBlueprint {
             BuildCostMass = 1,
             BuildTime = 10,
             BuildableCategoryAdds = 'FACTORY TECH1 LAND STRUCTURE CYBRAN',
-            Icon = 'aes',
+            Icon = 'exrtorp1',
             Name = 'Cybran T1 Engineering Suite',
             ShowBones = {
                 'Left_Upgrade',
