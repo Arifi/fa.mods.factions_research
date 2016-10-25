@@ -16,4 +16,3 @@ UAL0001 = Class(oldUAL0001) {
 
 }
 
-TypeClass = UAL0001

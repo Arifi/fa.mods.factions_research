@@ -1,6 +1,6 @@
 UnitBlueprint {
-Merge = true,
-BlueprintId = "uel0001",
+    Merge = true,
+    BlueprintId = "uel0001",
     
 	Economy = {
         -- If modifying Energy or Mass costs, modify Score component in aibrain.lua search battleResults
