@@ -133,7 +133,7 @@ UnitBlueprint {
             HideBones = {
                 'Left_Upgrade',
             },
-			Prerequisite = 'AeonEngineering',
+			Prerequisite = 'SeraEngineering',
 			RemoveEnhancements = {
                 'SeraEngineering',
 				'SeraEngineeringRemove',
