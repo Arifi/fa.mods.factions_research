@@ -7,12 +7,16 @@ UEL0001 = Class(oldUEL0001) {
     -- Creation
     -- ********
     OnCreate = function(self)
-        oldUEL0001.OnCreate(self)
-        
+        ACUUnit.OnCreate(self)
+        self:SetCapturable(false)
+        self:HideBone('Right_Upgrade', true)
+        self:HideBone('Left_Upgrade', true)
+        self:HideBone('Back_Upgrade_B01', true)
+        self:SetupBuildBones()
+        self.HasLeftPod = false
+        self.HasRightPod = false
         -- Restrict what enhancements will enable later
         --self:AddBuildRestriction( categories.UEF * (categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
-		self:RemoveBuildRestriction( categories.UEF)
-		self:AddBuildRestriction( categories.CYBRAN )
     end,
 	
     CreateEnhancement = function(self, enh)
