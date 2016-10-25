@@ -51,13 +51,13 @@ UnitBlueprint {
             },
             Slot = 'LCH',
         },
-		AeonEngineering = {
+		CybranEngineering = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 10,
-            BuildableCategoryAdds = 'FACTORY TECH1 LAND STRUCTURE AEON',
+            BuildableCategoryAdds = 'FACTORY TECH1 LAND STRUCTURE CYBRAN',
             Icon = 'aes',
-            Name = 'Aeon T1 Land Factory',
+            Name = 'Cybran T1 Land Factory',
             ShowBones = {
                 'Left_Upgrade',
             },
@@ -72,19 +72,19 @@ UnitBlueprint {
                 'UEL0001',
             },
         },
-		AeonEngineeringRemove = {
+		CybranEngineeringRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
             Icon = 'aes',
-            Name = 'Remove Aeon T1 Land Factory',
+            Name = 'Remove Cybran T1 Land Factory',
             HideBones = {
                 'Left_Upgrade',
             },
-			Prerequisite = 'AeonEngineering',
+			Prerequisite = 'CybranEngineering',
 			RemoveEnhancements = {
-                'AeonEngineering',
-				'AeonEngineeringRemove',
+                'CybranEngineering',
+				'CybranEngineeringRemove',
             },
             Slot = 'LCH',
         },
