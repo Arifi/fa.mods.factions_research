@@ -34,7 +34,7 @@ UnitBlueprint {
             BuildCostMass = 1,
             BuildTime = 10,
             BuildableCategoryAdds = 'FACTORY TECH1 LAND STRUCTURE CYBRAN',
-            Icon = 'exrtorp1',
+            Icon = 'cyb',
             Name = 'Cybran T1 Engineering Suite',
             ShowBones = {
                 'Left_Upgrade',
@@ -54,7 +54,7 @@ UnitBlueprint {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
-            Icon = 'aes',
+            Icon = 'cyb',
             Name = 'Remove Cybran T1 Engineering Suite',
             HideBones = {
                 'Left_Upgrade',
@@ -71,7 +71,7 @@ UnitBlueprint {
             BuildCostMass = 1,
             BuildTime = 10,
             BuildableCategoryAdds = 'FACTORY TECH1 LAND STRUCTURE AEON',
-            Icon = 'aes',
+            Icon = 'aeon',
             Name = 'Aeon T1 Engineering Suite',
             ShowBones = {
                 'Left_Upgrade',
@@ -91,7 +91,7 @@ UnitBlueprint {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
-            Icon = 'aes',
+            Icon = 'aeon',
             Name = 'Remove Aeon T1 Engineering Suite',
             HideBones = {
                 'Left_Upgrade',
@@ -108,7 +108,7 @@ UnitBlueprint {
             BuildCostMass = 1,
             BuildTime = 10,
             BuildableCategoryAdds = 'FACTORY TECH1 LAND STRUCTURE SERAPHIM',
-            Icon = 'aes',
+            Icon = 'sera',
             Name = 'Seraphim T1 Engineering Suite',
             ShowBones = {
                 'Left_Upgrade',
@@ -128,7 +128,7 @@ UnitBlueprint {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
-            Icon = 'aes',
+            Icon = 'sera',
             Name = 'Remove Seraphim T1 Engineering Suite',
             HideBones = {
                 'Left_Upgrade',
