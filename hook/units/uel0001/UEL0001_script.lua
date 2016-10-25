@@ -4,8 +4,9 @@ local oldUEL0001 = UEL0001
 UEL0001 = Class(oldUEL0001) {
 
 	OnCreate = function(self)
-		ACUUnit.OnCreate(self)
-	
+		oldUEL0001.OnCreate(self)
+		--ACUUnit.OnCreate(self)
+		
 	end,
 
     CreateEnhancement = function(self, enh)

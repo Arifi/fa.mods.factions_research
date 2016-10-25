@@ -1,23 +1,6 @@
---****************************************************************************
---**
---**  File     :  /cdimage/units/XSL0001/XSL0001_script.lua
---**  Author(s):  Drew Staltman, Jessica St. Croix, Gordon Duclos
---**
---**  Summary  :  Seraphim Commander Script
---**
---**  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
---****************************************************************************
-local ACUUnit = import('/lua/defaultunits.lua').ACUUnit
-local Buff = import('/lua/sim/Buff.lua')
-local SWeapons = import('/lua/seraphimweapons.lua')
-local SDFChronotronCannonWeapon = SWeapons.SDFChronotronCannonWeapon
-local SDFChronotronOverChargeCannonWeapon = SWeapons.SDFChronotronCannonOverChargeWeapon
-local DeathNukeWeapon = import('/lua/sim/defaultweapons.lua').DeathNukeWeapon
-local EffectUtil = import('/lua/EffectUtilities.lua')
-local SIFLaanseTacticalMissileLauncher = SWeapons.SIFLaanseTacticalMissileLauncher
-local AIUtils = import('/lua/ai/aiutilities.lua')
 
-XSL0001 = Class(ACUUnit) {
+local oldXSL = XSL0001
+XSL0001 = Class(oldACU) {
     Weapons = {
         DeathWeapon = Class(DeathNukeWeapon) {},
         ChronotronCannon = Class(SDFChronotronCannonWeapon) {},
@@ -32,11 +15,11 @@ XSL0001 = Class(ACUUnit) {
     },
 
     __init = function(self)
-        ACUUnit.__init(self, 'ChronotronCannon')
+        oldACU.__init(self, 'ChronotronCannon')
     end,
 
     OnCreate = function(self)
-        ACUUnit.OnCreate(self)
+        oldACU.OnCreate(self)
         self:SetCapturable(false)
         self:SetupBuildBones()
         self:HideBone('Back_Upgrade', true)
@@ -47,7 +30,7 @@ XSL0001 = Class(ACUUnit) {
     end,
 
     OnStopBeingBuilt = function(self,builder,layer)
-        ACUUnit.OnStopBeingBuilt(self,builder,layer)
+        oldACU.OnStopBeingBuilt(self,builder,layer)
         self:SetWeaponEnabledByLabel('ChronotronCannon', true)
         self:ForkThread(self.GiveInitialResources)
         self.ShieldEffectsBag = {}
@@ -87,7 +70,7 @@ XSL0001 = Class(ACUUnit) {
     end,
 
     CreateEnhancement = function(self, enh)
-        ACUUnit.CreateEnhancement(self, enh)
+        oldACU.CreateEnhancement(self, enh)
 
         local bp = self:GetBlueprint().Enhancements[enh]
 
