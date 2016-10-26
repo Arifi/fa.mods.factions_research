@@ -26,13 +26,12 @@ UnitBlueprint {
             },
             Slot = 'LCH',
             UpgradeEffectBones = {
-                'Left_Upgrade',
-                'Left_Upgrade_Muzzle',
-                'Left_Arm_Muzzle',
-                'Left_Arm_Barrel',
+                'Right_Upgrade',
+                'Right_Turret',
+                'Right_Muzzle_02',
             },
             UpgradeUnitAmbientBones = {
-                'UEL0001',
+                'URL0001',
             },
         },
 		UEFEngineeringRemove = {
@@ -63,13 +62,12 @@ UnitBlueprint {
             },
             Slot = 'LCH',
             UpgradeEffectBones = {
-                'Left_Upgrade',
-                'Left_Upgrade_Muzzle',
-                'Left_Arm_Muzzle',
-                'Left_Arm_Barrel',
+                'Right_Upgrade',
+                'Right_Turret',
+                'Right_Muzzle_02',
             },
             UpgradeUnitAmbientBones = {
-                'UEL0001',
+                'URL0001',
             },
         },
 		AeonEngineeringRemove = {
@@ -100,13 +98,12 @@ UnitBlueprint {
             },
             Slot = 'LCH',
             UpgradeEffectBones = {
-                'Left_Upgrade',
-                'Left_Upgrade_Muzzle',
-                'Left_Arm_Muzzle',
-                'Left_Arm_Barrel',
+                'Right_Upgrade',
+                'Right_Turret',
+                'Right_Muzzle_02',
             },
             UpgradeUnitAmbientBones = {
-                'UEL0001',
+                'URL0001',
             },
         },
 		SeraEngineeringRemove = {
