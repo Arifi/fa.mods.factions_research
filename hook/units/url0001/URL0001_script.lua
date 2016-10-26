@@ -15,7 +15,7 @@ URL0001 = Class(oldURL0001) {
         local UpgradesFrom = unitBeingBuilt:GetBlueprint().General.UpgradesFrom
 		local faction =  unitBeingBuilt:GetBlueprint().General.FactionName
 		
-		elseif faction == 'Aeon' then
+		if faction == 'Aeon' then
 			EffectUtil.CreateAeonCommanderBuildingEffects( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag )
 		elseif faction == 'UEF' then
 			--If we are assisting an upgrading unit, or repairing a unit, play separate effects
@@ -24,7 +24,7 @@ URL0001 = Class(oldURL0001) {
 			else
 				EffectUtil.CreateUEFCommanderBuildSliceBeams( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag )        
 			end
-		elseif faction == 'Seraphim'
+		elseif faction == 'Seraphim' then
 			EffectUtil.CreateSeraphimUnitEngineerBuildingEffects( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag )
 		else
 			EffectUtil.SpawnBuildBots( self, unitBeingBuilt, self.BuildEffectsBag )
