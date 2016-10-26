@@ -15,9 +15,9 @@ UnitBlueprint {
     },
     Enhancements = {
 		UEFEngineering = {
-            BuildCostEnergy = 1,
-            BuildCostMass = 1,
-            BuildTime = 10,
+            BuildCostEnergy = 18000,
+            BuildCostMass = 500,
+            BuildTime = 40,
             BuildableCategoryAdds = 'FACTORY TECH1 LAND STRUCTURE UEF',
             Icon = 'uef',
             Name = 'UEF T1 Land Factory',
@@ -51,9 +51,9 @@ UnitBlueprint {
             Slot = 'LCH',
         },
 		AeonEngineering = {
-            BuildCostEnergy = 1,
-            BuildCostMass = 1,
-            BuildTime = 10,
+            BuildCostEnergy = 18000,
+            BuildCostMass = 500,
+            BuildTime = 40,
             BuildableCategoryAdds = 'FACTORY TECH1 LAND STRUCTURE AEON',
             Icon = 'aeon',
             Name = 'Aeon T1 Land Factory',
@@ -87,9 +87,9 @@ UnitBlueprint {
             Slot = 'LCH',
         },
 		SeraEngineering = {
-            BuildCostEnergy = 1,
-            BuildCostMass = 1,
-            BuildTime = 10,
+            BuildCostEnergy = 18000,
+            BuildCostMass = 500,
+            BuildTime = 40,
             BuildableCategoryAdds = 'FACTORY TECH1 LAND STRUCTURE SERAPHIM',
             Icon = 'sera',
             Name = 'Seraphim T1 Land Factory',

@@ -15,9 +15,9 @@ UnitBlueprint {
     },
     Enhancements = {
 		CybranEngineering = {
-            BuildCostEnergy = 1,
-            BuildCostMass = 1,
-            BuildTime = 10,
+            BuildCostEnergy = 18000,
+            BuildCostMass = 500,
+            BuildTime = 40,
             BuildableCategoryAdds = 'FACTORY TECH1 LAND STRUCTURE CYBRAN',
             Icon = 'cyb',
             Name = 'Cybran T1 Land Factory',
@@ -52,9 +52,9 @@ UnitBlueprint {
             Slot = 'LCH',
         },
 		AeonEngineering = {
-            BuildCostEnergy = 1,
-            BuildCostMass = 1,
-            BuildTime = 10,
+            BuildCostEnergy = 18000,
+            BuildCostMass = 500,
+            BuildTime = 40,
             BuildableCategoryAdds = 'FACTORY TECH1 LAND STRUCTURE AEON',
             Icon = 'aeon',
             Name = 'Aeon T1 Engineering Suite',
@@ -89,9 +89,9 @@ UnitBlueprint {
             Slot = 'LCH',
         },
 		SeraEngineering = {
-            BuildCostEnergy = 1,
-            BuildCostMass = 1,
-            BuildTime = 10,
+            BuildCostEnergy = 18000,
+            BuildCostMass = 500,
+            BuildTime = 40,
             BuildableCategoryAdds = 'FACTORY TECH1 LAND STRUCTURE SERAPHIM',
             Icon = 'sera',
             Name = 'Seraphim T1 Land Factory',
@@ -124,29 +124,6 @@ UnitBlueprint {
 				'SeraEngineeringRemove',
             },
             Slot = 'LCH',
-        },
-        AdvancedEngineering = {
-            BuildCostEnergy = 1, --18000,
-            BuildCostMass = 1, --720,
-            BuildTime = 1, --900,
-            BuildableCategoryAdds = 'BUILTBYTIER2COMMANDER UEF',
-            Icon = 'aes',
-            Name = '<LOC enhancements_0037>Tech 2 Engineering Suite',
-            NewBuildRate = 42,
-            NewHealth = 1500,
-            ShowBones = {
-                'Left_Upgrade',
-            },
-            Slot = 'LCH',
-            UpgradeEffectBones = {
-                'Left_Upgrade',
-                'Left_Upgrade_Muzzle',
-                'Left_Arm_Muzzle',
-                'Left_Arm_Barrel',
-            },
-            UpgradeUnitAmbientBones = {
-                'UEL0001',
-            },
         },
     },
 }
