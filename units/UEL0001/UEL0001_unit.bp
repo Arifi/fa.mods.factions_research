@@ -4,11 +4,6 @@ UnitBlueprint {
     
 		
 	Economy = {
-        -- If modifying Energy or Mass costs, modify Score component in aibrain.lua search battleResults
-        BuildCostEnergy = 5000000,
-        BuildCostMass = 18000,
-        BuildRate = 10,
-        BuildTime = 6000000,
         BuildableCategory = {
             'BUILTBYCOMMANDER UEF',
 			'FACTORY TECH1 LAND STRUCTURE CYBRAN',
@@ -17,16 +12,6 @@ UnitBlueprint {
             'BUILTBYTIER2COMMANDER UEF',
             'BUILTBYTIER3COMMANDER UEF',
         },
-        MaxBuildDistance = 10,
-        NaturalProducer = true,
-        NeedToFaceTargetToBuild = false,
-        ProductionPerSecondEnergy = 20,
-        ProductionPerSecondMass = 1,
-        StorageEnergy = 4000,
-        StorageMass = 650,
-        TeleportEnergyMod = 0.03,
-        TeleportMassMod = 0,
-        TeleportTimeMod = 0.0001
     },
     Enhancements = {
 		CybranEngineering = {
@@ -35,7 +20,7 @@ UnitBlueprint {
             BuildTime = 10,
             BuildableCategoryAdds = 'FACTORY TECH1 LAND STRUCTURE CYBRAN',
             Icon = 'cyb',
-            Name = 'Cybran T1 Engineering Suite',
+            Name = 'Cybran T1 Land Factory',
             ShowBones = {
                 'Left_Upgrade',
             },
@@ -55,7 +40,7 @@ UnitBlueprint {
             BuildCostMass = 1,
             BuildTime = 0.1,
             Icon = 'cyb',
-            Name = 'Remove Cybran T1 Engineering Suite',
+            Name = 'Remove Cybran T1 Land Factory',
             HideBones = {
                 'Left_Upgrade',
             },
@@ -92,7 +77,7 @@ UnitBlueprint {
             BuildCostMass = 1,
             BuildTime = 0.1,
             Icon = 'aeon',
-            Name = 'Remove Aeon T1 Engineering Suite',
+            Name = 'Remove Aeon T1 Land Factory',
             HideBones = {
                 'Left_Upgrade',
             },
@@ -109,7 +94,7 @@ UnitBlueprint {
             BuildTime = 10,
             BuildableCategoryAdds = 'FACTORY TECH1 LAND STRUCTURE SERAPHIM',
             Icon = 'sera',
-            Name = 'Seraphim T1 Engineering Suite',
+            Name = 'Seraphim T1 Land Factory',
             ShowBones = {
                 'Left_Upgrade',
             },
@@ -129,7 +114,7 @@ UnitBlueprint {
             BuildCostMass = 1,
             BuildTime = 0.1,
             Icon = 'sera',
-            Name = 'Remove Seraphim T1 Engineering Suite',
+            Name = 'Remove Seraphim T1 Land Factory',
             HideBones = {
                 'Left_Upgrade',
             },
@@ -162,61 +147,6 @@ UnitBlueprint {
             UpgradeUnitAmbientBones = {
                 'UEL0001',
             },
-        },
-        AdvancedEngineeringRemove = {
-            BuildCostEnergy = 1,
-            BuildCostMass = 1,
-            BuildTime = 0.1,
-            HideBones = {
-                'Left_Upgrade',
-            },
-            Icon = 'aes',
-            Name = '<LOC enhancements_0038>Remove Tech 2 Engineering Suite',
-            Prerequisite = 'AdvancedEngineering',
-            RemoveEnhancements = {
-                'AdvancedEngineering',
-                'AdvancedEngineeringRemove',
-            },
-            Slot = 'LCH',
-        },
-        
-        T3Engineering = {
-            BuildCostEnergy = 1,-- 50000,
-            BuildCostMass = 1,--2400,
-            BuildTime = 1,--8400,
-            BuildableCategoryAdds = 'BUILTBYTIER3COMMANDER UEF',
-            Icon = 'ees',
-            Name = '<LOC enhancements_0053>Tech 3 Engineering Suite',
-            NewBuildRate = 100,
-            NewHealth = 3000,
-            Prerequisite = 'AdvancedEngineering',
-            Slot = 'LCH',
-            UpgradeEffectBones = {
-                'Left_Upgrade',
-                'Left_Upgrade_Muzzle',
-                'Left_Arm_Muzzle',
-                'Left_Arm_Barrel',
-            },
-            UpgradeUnitAmbientBones = {
-                'UEL0001',
-            },
-        },
-        T3EngineeringRemove = {
-            BuildCostEnergy = 1,
-            BuildCostMass = 1,
-            BuildTime = 0.1,
-            HideBones = {
-                'Left_Upgrade',
-            },
-            Icon = 'ees',
-            Name = '<LOC enhancements_0054>Remove Engineering Suites',
-            Prerequisite = 'T3Engineering',
-            RemoveEnhancements = {
-                'AdvancedEngineering',
-                'T3Engineering',
-                'T3EngineeringRemove',
-            },
-            Slot = 'LCH',
         },
     },
 }
