@@ -15,7 +15,6 @@ XSL0001 = Class(oldXSL0001) {
         local UpgradesFrom = unitBeingBuilt:GetBlueprint().General.UpgradesFrom
 		local faction =  unitBeingBuilt:GetBlueprint().General.FactionName
 		
-		
 		-- cybran
 		if faction == 'Cybran' then
 			EffectUtil.SpawnBuildBots( self, unitBeingBuilt, self.BuildEffectsBag )
@@ -32,7 +31,6 @@ XSL0001 = Class(oldXSL0001) {
 		else
 			EffectUtil.CreateSeraphimUnitEngineerBuildingEffects( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag )
 		end
-        
     end,
 	
 	-- cybran build effect
