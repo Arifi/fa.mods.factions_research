@@ -87,26 +87,25 @@ XSL0001 = Class(oldXSL0001) {
             if not bp then return end
             self:RestoreBuildRestrictions()
             self:AddBuildRestriction( categories.SERAPHIM * (categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
-            self:AddBuildRestriction( categories.SERAPHIM * (categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
-			--
+            if Buff.HasBuff( self, 'SeraphimACUT2BuildRate' ) then
+                Buff.RemoveBuff( self, 'SeraphimACUT2BuildRate' )
+			end
+			
 			self:AddBuildRestriction(categories.CYBRAN)
 			self:AddBuildRestriction(categories.AEON)
 			self:AddBuildRestriction(categories.UEF)
 			--
-            if Buff.HasBuff( self, 'UEFACUT2BuildRate' ) then
-                Buff.RemoveBuff( self, 'UEFACUT2BuildRate' )
-            end
             -- Engymod addition: After fiddling with build restrictions, update engymod build restrictions
             self:updateBuildRestrictions()
         elseif enh =='T3EngineeringRemove' then
             local bp = self:GetBlueprint().Economy.BuildRate
             if not bp then return end
             self:RestoreBuildRestrictions()
-            if Buff.HasBuff( self, 'UEFACUT3BuildRate' ) then
-                Buff.RemoveBuff( self, 'UEFACUT3BuildRate' )
+            if Buff.HasBuff( self, 'SeraphimACUT3BuildRate' ) then
+                Buff.RemoveBuff( self, 'SeraphimACUT3BuildRate' )
             end
             self:AddBuildRestriction( categories.SERAPHIM * ( categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
-			--
+        	--
 			self:AddBuildRestriction(categories.CYBRAN)
 			self:AddBuildRestriction(categories.AEON)
 			self:AddBuildRestriction(categories.UEF)
