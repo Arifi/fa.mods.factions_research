@@ -1,356 +1,120 @@
+--UEF ACU
 
-local oldXSL = XSL0001
-XSL0001 = Class(oldACU) {
-    Weapons = {
-        DeathWeapon = Class(DeathNukeWeapon) {},
-        ChronotronCannon = Class(SDFChronotronCannonWeapon) {},
-        Missile = Class(SIFLaanseTacticalMissileLauncher) {
-            OnCreate = function(self)
-                SIFLaanseTacticalMissileLauncher.OnCreate(self)
-                self:SetWeaponEnabled(false)
-            end,
-        },
-        OverCharge = Class(SDFChronotronOverChargeCannonWeapon) {},
-        AutoOverCharge = Class(SDFChronotronOverChargeCannonWeapon) {},
-    },
+local oldXSL0001 = XSL0001
+XSL0001 = Class(oldXSL0001) {
 
-    __init = function(self)
-        oldACU.__init(self, 'ChronotronCannon')
+	OnCreate = function(self)
+		oldXSL0001.OnCreate(self)
+		--ACUUnit.OnCreate(self)
+		self:AddBuildRestriction(categories.CYBRAN)
+		self:AddBuildRestriction(categories.AEON)
+		self:AddBuildRestriction(categories.UEF)
+	end,
+	
+	CreateBuildEffects = function( self, unitBeingBuilt, order )
+        local UpgradesFrom = unitBeingBuilt:GetBlueprint().General.UpgradesFrom
+		local faction =  unitBeingBuilt:GetBlueprint().General.FactionName
+		
+		
+		-- cybran
+		if faction == 'Cybran' then
+			EffectUtil.SpawnBuildBots( self, unitBeingBuilt, self.BuildEffectsBag )
+			EffectUtil.CreateCybranBuildBeams( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag )
+		elseif faction == 'Aeon' then
+			EffectUtil.CreateAeonCommanderBuildingEffects( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag )
+		elseif faction == 'UEF' then
+			--If we are assisting an upgrading unit, or repairing a unit, play separate effects
+			if (order == 'Repair' and not unitBeingBuilt:IsBeingBuilt()) or (UpgradesFrom and UpgradesFrom ~= 'none' and self:IsUnitState('Guarding'))then
+				EffectUtil.CreateDefaultBuildBeams( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag )
+			else
+				EffectUtil.CreateUEFCommanderBuildSliceBeams( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag )        
+			end
+		else
+			EffectUtil.CreateSeraphimUnitEngineerBuildingEffects( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag )
+		end
+        
     end,
-
-    OnCreate = function(self)
-        oldACU.OnCreate(self)
-        self:SetCapturable(false)
-        self:SetupBuildBones()
-        self:HideBone('Back_Upgrade', true)
-        self:HideBone('Right_Upgrade', true)
-        self:HideBone('Left_Upgrade', true)
-        -- Restrict what enhancements will enable later
-        self:AddBuildRestriction( categories.SERAPHIM * (categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
-    end,
-
-    OnStopBeingBuilt = function(self,builder,layer)
-        oldACU.OnStopBeingBuilt(self,builder,layer)
-        self:SetWeaponEnabledByLabel('ChronotronCannon', true)
-        self:ForkThread(self.GiveInitialResources)
-        self.ShieldEffectsBag = {}
-    end,
-
-    CreateBuildEffects = function( self, unitBeingBuilt, order )
-        EffectUtil.CreateSeraphimUnitEngineerBuildingEffects( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag )
-    end,
-
-    GetUnitsToBuff = function(self, bp)
-        local unitCat = ParseEntityCategory(bp.UnitCategory or 'BUILTBYTIER3FACTORY + BUILTBYQUANTUMGATE + NEEDMOBILEBUILD')
-        local brain = self:GetAIBrain()
-        local all = brain:GetUnitsAroundPoint(unitCat, self:GetPosition(), bp.Radius, 'Ally')
-        local units = {}
-
-        for _, u in all do
-            if not u.Dead and not u:IsBeingBuilt() then
-                table.insert(units, u)
-            end
-        end
-
-        return units
-    end,
-
-    RegenBuffThread = function(self, type)
-        local bp = self:GetBlueprint().Enhancements[type]
-        local buff = 'SeraphimACU' .. type
-
-        while not self.Dead do
-            local units = self:GetUnitsToBuff(bp)
-            for _,unit in units do
-                Buff.ApplyBuff(unit, buff)
-                unit:RequestRefreshUI()
-            end
-            WaitSeconds(5)
-        end
-    end,
+	
+	-- cybran build effect
+        --EffectUtil.SpawnBuildBots( self, unitBeingBuilt, self.BuildEffectsBag )
+        --EffectUtil.CreateCybranBuildBeams( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag )
+	-- aeon build effect 
+		-- EffectUtil.CreateAeonCommanderBuildingEffects( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag )
 
     CreateEnhancement = function(self, enh)
-        oldACU.CreateEnhancement(self, enh)
-
-        local bp = self:GetBlueprint().Enhancements[enh]
-
-        -- Regenerative Aura
-        if enh == 'RegenAura' or enh == 'AdvancedRegenAura' then
-            local buff
-            local type
-
-            buff = 'SeraphimACU' .. enh
-
-            if not Buffs[buff] then
-                local buff_bp = {
-                    Name = buff,
-                    DisplayName = buff,
-                    BuffType = 'COMMANDERAURA_' .. enh,
-                    Stacks = 'REPLACE',
-                    Duration = 5,
-                    Affects = {
-                        Regen = {
-                            Add = 0,
-                            Mult = bp.RegenPerSecond,
-                            Ceil = bp.RegenCeiling,
-                        },
-                    },
-                }
-
-                if enh == 'AdvancedRegenAura' then
-                    buff_bp.Affects.MaxHealth = {
-                        Add = 0,
-                        Mult = bp.MaxHealthFactor,
-                        DoNoFill = true,
-                    }
-                end
-
-                BuffBlueprint(buff_bp)
-            end
-
-            buff2 = buff .. 'SelfBuff'
-
-            if not Buffs[buff2] then   -- AURA SELF BUFF
-                BuffBlueprint {
-                    Name = buff2,
-                    DisplayName = buff2,
-                    BuffType = 'COMMANDERAURAFORSELF',
-                    Stacks = 'REPLACE',
-                    Duration = -1,
-                    Affects = {
-                        MaxHealth = {
-                            Add = bp.ACUAddHealth,
-                            Mult = 1,
-                        },
-                    },
-                }
-            end
-
-            Buff.ApplyBuff(self, buff2)
-            table.insert(self.ShieldEffectsBag, CreateAttachedEmitter(self, 'XSL0001', self:GetArmy(), '/effects/emitters/seraphim_regenerative_aura_01_emit.bp'))
-            if self.RegenThreadHandle then
-                KillThread(self.RegenThreadHandle)
-                self.RegenThreadHandle = nil
-            end
-
-            self.RegenThreadHandle = self:ForkThread(self.RegenBuffThread, enh)
-        elseif enh == 'RegenAuraRemove' or enh == 'AdvancedRegenAuraRemove' then
-            if self.ShieldEffectsBag then
-                for k, v in self.ShieldEffectsBag do
-                    v:Destroy()
-                end
-                self.ShieldEffectsBag = {}
-            end
-
-            KillThread(self.RegenThreadHandle)
-            self.RegenThreadHandle = nil
-            for _, b in {'SeraphimACURegenAura', 'SeraphimACUAdvancedRegenAura'} do
-                if Buff.HasBuff(self, b .. 'SelfBuff') then
-                    Buff.RemoveBuff(self, b .. 'SelfBuff')
-                end
-            end
-        elseif enh == 'ResourceAllocation' then
-            local bp = self:GetBlueprint().Enhancements[enh]
-            local bpEcon = self:GetBlueprint().Economy
-            if not bp then return end
-            self:SetProductionPerSecondEnergy(bp.ProductionPerSecondEnergy + bpEcon.ProductionPerSecondEnergy or 0)
-            self:SetProductionPerSecondMass(bp.ProductionPerSecondMass + bpEcon.ProductionPerSecondMass or 0)
-        elseif enh == 'ResourceAllocationRemove' then
-            local bpEcon = self:GetBlueprint().Economy
-            self:SetProductionPerSecondEnergy(bpEcon.ProductionPerSecondEnergy or 0)
-            self:SetProductionPerSecondMass(bpEcon.ProductionPerSecondMass or 0)
-        elseif enh == 'ResourceAllocationAdvanced' then
-            local bp = self:GetBlueprint().Enhancements[enh]
-            local bpEcon = self:GetBlueprint().Economy
-            if not bp then return end
-            self:SetProductionPerSecondEnergy(bp.ProductionPerSecondEnergy + bpEcon.ProductionPerSecondEnergy or 0)
-            self:SetProductionPerSecondMass(bp.ProductionPerSecondMass + bpEcon.ProductionPerSecondMass or 0)
-        elseif enh == 'ResourceAllocationAdvancedRemove' then
-            local bpEcon = self:GetBlueprint().Economy
-            self:SetProductionPerSecondEnergy(bpEcon.ProductionPerSecondEnergy or 0)
-            self:SetProductionPerSecondMass(bpEcon.ProductionPerSecondMass or 0)
-        --Damage Stabilization
-        elseif enh == 'DamageStabilization' then
-            if not Buffs['SeraphimACUDamageStabilization'] then
-               BuffBlueprint {
-                    Name = 'SeraphimACUDamageStabilization',
-                    DisplayName = 'SeraphimACUDamageStabilization',
-                    BuffType = 'ACUUPGRADEDMG',
-                    Stacks = 'ALWAYS',
-                    Duration = -1,
-                    Affects = {
-                        MaxHealth = {
-                            Add = bp.NewHealth,
-                            Mult = 1.0,
-                        },
-                        Regen = {
-                            Add = bp.NewRegenRate,
-                            Mult = 1.0,
-                        },
-                    },
-                }
-            end
-            if Buff.HasBuff( self, 'SeraphimACUDamageStabilization' ) then
-                Buff.RemoveBuff( self, 'SeraphimACUDamageStabilization' )
-            end
-            Buff.ApplyBuff(self, 'SeraphimACUDamageStabilization')
-          elseif enh == 'DamageStabilizationAdvanced' then
-            if not Buffs['SeraphimACUDamageStabilizationAdv'] then
-               BuffBlueprint {
-                    Name = 'SeraphimACUDamageStabilizationAdv',
-                    DisplayName = 'SeraphimACUDamageStabilizationAdv',
-                    BuffType = 'ACUUPGRADEDMG',
-                    Stacks = 'ALWAYS',
-                    Duration = -1,
-                    Affects = {
-                        MaxHealth = {
-                            Add = bp.NewHealth,
-                            Mult = 1.0,
-                        },
-                        Regen = {
-                            Add = bp.NewRegenRate,
-                            Mult = 1.0,
-                        },
-                    },
-                }
-            end
-            if Buff.HasBuff( self, 'SeraphimACUDamageStabilizationAdv' ) then
-                Buff.RemoveBuff( self, 'SeraphimACUDamageStabilizationAdv' )
-            end
-            Buff.ApplyBuff(self, 'SeraphimACUDamageStabilizationAdv')
-        elseif enh == 'DamageStabilizationAdvancedRemove' then
-            -- since there's no way to just remove an upgrade anymore, if we're remove adv, were removing both
-            if Buff.HasBuff( self, 'SeraphimACUDamageStabilizationAdv' ) then
-                Buff.RemoveBuff( self, 'SeraphimACUDamageStabilizationAdv' )
-            end
-            if Buff.HasBuff( self, 'SeraphimACUDamageStabilization' ) then
-                Buff.RemoveBuff( self, 'SeraphimACUDamageStabilization' )
-            end
-        elseif enh == 'DamageStabilizationRemove' then
-            if Buff.HasBuff( self, 'SeraphimACUDamageStabilization' ) then
-                Buff.RemoveBuff( self, 'SeraphimACUDamageStabilization' )
-            end
-        --Teleporter
-        elseif enh == 'Teleporter' then
-            self:AddCommandCap('RULEUCC_Teleport')
-        elseif enh == 'TeleporterRemove' then
-            self:RemoveCommandCap('RULEUCC_Teleport')
-        -- Tactical Missile
-        elseif enh == 'Missile' then
-            self:AddCommandCap('RULEUCC_Tactical')
-            self:AddCommandCap('RULEUCC_SiloBuildTactical')
-            self:SetWeaponEnabledByLabel('Missile', true)
-        elseif enh == 'MissileRemove' then
-            self:RemoveCommandCap('RULEUCC_Tactical')
-            self:RemoveCommandCap('RULEUCC_SiloBuildTactical')
-            self:SetWeaponEnabledByLabel('Missile', false)
-        --T2 Engineering
-        elseif enh =='AdvancedEngineering' then
-            local bp = self:GetBlueprint().Enhancements[enh]
-            if not bp then return end
+        oldXSL0001.CreateEnhancement(self, enh)
+		
+		local bp = self:GetBlueprint().Enhancements[enh]
+        if not bp then return end
+		
+        if enh =='CybranEngineering' then
             local cat = ParseEntityCategory(bp.BuildableCategoryAdds)
             self:RemoveBuildRestriction(cat)
-            if not Buffs['SeraphimACUT2BuildRate'] then
-                BuffBlueprint {
-                    Name = 'SeraphimACUT2BuildRate',
-                    DisplayName = 'SeraphimACUT2BuildRate',
-                    BuffType = 'ACUBUILDRATE',
-                    Stacks = 'REPLACE',
-                    Duration = -1,
-                    Affects = {
-                        BuildRate = {
-                            Add =  bp.NewBuildRate - self:GetBlueprint().Economy.BuildRate,
-                            Mult = 1,
-                        },
-                        MaxHealth = {
-                            Add = bp.NewHealth,
-                            Mult = 1.0,
-                        },
-                    },
-                }
-            end
-            Buff.ApplyBuff(self, 'SeraphimACUT2BuildRate')
-        -- Engymod addition: After fiddling with build restrictions, update engymod build restrictions
-        self:updateBuildRestrictions()
-
+            -- Engymod addition: After fiddling with build restrictions, update engymod build restrictions
+            self:updateBuildRestrictions()
+        elseif enh =='CybranEngineeringRemove' then
+            local bp = self:GetBlueprint().Economy.BuildRate
+            if not bp then return end
+            self:AddBuildRestriction(categories.CYBRAN)
+            -- Engymod addition: After fiddling with build restrictions, update engymod build restrictions
+            self:updateBuildRestrictions()
+		elseif enh =='AeonEngineering' then
+            local cat = ParseEntityCategory(bp.BuildableCategoryAdds)
+            self:RemoveBuildRestriction(cat)
+            -- Engymod addition: After fiddling with build restrictions, update engymod build restrictions
+            self:updateBuildRestrictions()
+        elseif enh =='AeonEngineeringRemove' then
+            local bp = self:GetBlueprint().Economy.BuildRate
+            if not bp then return end
+			self:AddBuildRestriction(categories.AEON)
+            -- Engymod addition: After fiddling with build restrictions, update engymod build restrictions
+            self:updateBuildRestrictions()
+		elseif enh =='UEFEngineering' then
+            local cat = ParseEntityCategory(bp.BuildableCategoryAdds)
+            self:RemoveBuildRestriction(cat)
+            -- Engymod addition: After fiddling with build restrictions, update engymod build restrictions
+            self:updateBuildRestrictions()
+        elseif enh =='UEFEngineeringRemove' then
+            local bp = self:GetBlueprint().Economy.BuildRate
+            if not bp then return end
+			self:AddBuildRestriction(categories.UEF)
+            -- Engymod addition: After fiddling with build restrictions, update engymod build restrictions
+            self:updateBuildRestrictions()
+			-- ***
+			--
         elseif enh =='AdvancedEngineeringRemove' then
             local bp = self:GetBlueprint().Economy.BuildRate
             if not bp then return end
             self:RestoreBuildRestrictions()
             self:AddBuildRestriction( categories.SERAPHIM * (categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
-            if Buff.HasBuff( self, 'SeraphimACUT2BuildRate' ) then
-                Buff.RemoveBuff( self, 'SeraphimACUT2BuildRate' )
-         end
-        -- Engymod addition: After fiddling with build restrictions, update engymod build restrictions
-        self:updateBuildRestrictions()
-
-        --T3 Engineering
-        elseif enh =='T3Engineering' then
-            local bp = self:GetBlueprint().Enhancements[enh]
-            if not bp then return end
-            local cat = ParseEntityCategory(bp.BuildableCategoryAdds)
-            self:RemoveBuildRestriction(cat)
-            if not Buffs['SeraphimACUT3BuildRate'] then
-                BuffBlueprint {
-                    Name = 'SeraphimACUT3BuildRate',
-                    DisplayName = 'SeraphimCUT3BuildRate',
-                    BuffType = 'ACUBUILDRATE',
-                    Stacks = 'REPLACE',
-                    Duration = -1,
-                    Affects = {
-                        BuildRate = {
-                            Add =  bp.NewBuildRate - self:GetBlueprint().Economy.BuildRate,
-                            Mult = 1,
-                        },
-                        MaxHealth = {
-                            Add = bp.NewHealth,
-                            Mult = 1.0,
-                        },
-                    },
-                }
+            self:AddBuildRestriction( categories.SERAPHIM * (categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
+			--
+			self:AddBuildRestriction(categories.CYBRAN)
+			self:AddBuildRestriction(categories.AEON)
+			self:AddBuildRestriction(categories.UEF)
+			--
+            if Buff.HasBuff( self, 'UEFACUT2BuildRate' ) then
+                Buff.RemoveBuff( self, 'UEFACUT2BuildRate' )
             end
-            Buff.ApplyBuff(self, 'SeraphimACUT3BuildRate')
-        -- Engymod addition: After fiddling with build restrictions, update engymod build restrictions
-        self:updateBuildRestrictions()
+            -- Engymod addition: After fiddling with build restrictions, update engymod build restrictions
+            self:updateBuildRestrictions()
         elseif enh =='T3EngineeringRemove' then
             local bp = self:GetBlueprint().Economy.BuildRate
             if not bp then return end
             self:RestoreBuildRestrictions()
-            if Buff.HasBuff( self, 'SeraphimACUT3BuildRate' ) then
-                Buff.RemoveBuff( self, 'SeraphimACUT3BuildRate' )
+            if Buff.HasBuff( self, 'UEFACUT3BuildRate' ) then
+                Buff.RemoveBuff( self, 'UEFACUT3BuildRate' )
             end
             self:AddBuildRestriction( categories.SERAPHIM * ( categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
-        -- Engymod addition: After fiddling with build restrictions, update engymod build restrictions
-        self:updateBuildRestrictions()
-        --Blast Attack
-        elseif enh == 'BlastAttack' then
-            local wep = self:GetWeaponByLabel('ChronotronCannon')
-            wep:AddDamageRadiusMod(bp.NewDamageRadius or 5)
-            wep:AddDamageMod(bp.AdditionalDamage)
-        elseif enh == 'BlastAttackRemove' then
-            local wep = self:GetWeaponByLabel('ChronotronCannon')
-            wep:AddDamageRadiusMod(-self:GetBlueprint().Enhancements['BlastAttack'].NewDamageRadius) -- unlimited AOE bug fix by brute51 [117]
-            wep:AddDamageMod(-self:GetBlueprint().Enhancements['BlastAttack'].AdditionalDamage)
-        --Heat Sink Augmentation
-        elseif enh == 'RateOfFire' then
-            local wep = self:GetWeaponByLabel('ChronotronCannon')
-            wep:ChangeRateOfFire(bp.NewRateOfFire or 2)
-            wep:ChangeMaxRadius(bp.NewMaxRadius or 44)
-            local oc = self:GetWeaponByLabel('OverCharge')
-            oc:ChangeMaxRadius(bp.NewMaxRadius or 44)
-            local aoc = self:GetWeaponByLabel('AutoOverCharge')
-            aoc:ChangeMaxRadius(bp.NewMaxRadius or 44)
-        elseif enh == 'RateOfFireRemove' then
-            local wep = self:GetWeaponByLabel('ChronotronCannon')
-            local bpDisrupt = self:GetBlueprint().Weapon[1].RateOfFire
-            wep:ChangeRateOfFire(bpDisrupt or 1)
-            bpDisrupt = self:GetBlueprint().Weapon[1].MaxRadius
-            wep:ChangeMaxRadius(bpDisrupt or 22)
-            local oc = self:GetWeaponByLabel('OverCharge')
-            oc:ChangeMaxRadius(bpDisrupt or 22)
-            local aoc = self:GetWeaponByLabel('AutoOverCharge')
-            aoc:ChangeMaxRadius(bpDisrupt or 22)
-        end
+			--
+			self:AddBuildRestriction(categories.CYBRAN)
+			self:AddBuildRestriction(categories.AEON)
+			self:AddBuildRestriction(categories.UEF)
+			--
+            -- Engymod addition: After fiddling with build restrictions, update engymod build restrictions
+            self:updateBuildRestrictions()
+		end
+		
     end,
 }
 
