@@ -38,17 +38,18 @@ URL0001 = Class(oldURL0001) {
 		local bp = self:GetBlueprint().Enhancements[enh]
         if not bp then return end
 		
-        if enh =='CybranEngineering' then
+        if enh =='SeraEngineering' then
             local cat = ParseEntityCategory(bp.BuildableCategoryAdds)
             self:RemoveBuildRestriction(cat)
             -- Engymod addition: After fiddling with build restrictions, update engymod build restrictions
             self:updateBuildRestrictions()
-        elseif enh =='CybranEngineeringRemove' then
+        elseif enh =='SeraEngineeringRemove' then
             local bp = self:GetBlueprint().Economy.BuildRate
             if not bp then return end
-            self:AddBuildRestriction(categories.SERAPHIM)
+			self:AddBuildRestriction(categories.SERAPHIM)
             -- Engymod addition: After fiddling with build restrictions, update engymod build restrictions
             self:updateBuildRestrictions()
+			-- ***
 		elseif enh =='AeonEngineering' then
             local cat = ParseEntityCategory(bp.BuildableCategoryAdds)
             self:RemoveBuildRestriction(cat)
