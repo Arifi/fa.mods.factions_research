@@ -28,11 +28,9 @@ UnitBlueprint {
             UpgradeEffectBones = {
                 'Left_Upgrade',
                 'Left_Upgrade_Muzzle',
-                'Left_Arm_Muzzle',
-                'Left_Arm_Barrel',
             },
             UpgradeUnitAmbientBones = {
-                'UEL0001',
+                'Body',
             },
         },
 		UEFEngineeringRemove = {
@@ -65,11 +63,9 @@ UnitBlueprint {
             UpgradeEffectBones = {
                 'Left_Upgrade',
                 'Left_Upgrade_Muzzle',
-                'Left_Arm_Muzzle',
-                'Left_Arm_Barrel',
             },
             UpgradeUnitAmbientBones = {
-                'UEL0001',
+                'Body',
             },
         },
 		CybranEngineeringRemove = {
@@ -102,11 +98,9 @@ UnitBlueprint {
             UpgradeEffectBones = {
                 'Left_Upgrade',
                 'Left_Upgrade_Muzzle',
-                'Left_Arm_Muzzle',
-                'Left_Arm_Barrel',
             },
             UpgradeUnitAmbientBones = {
-                'UEL0001',
+                'Body',
             },
         },
 		AeonEngineeringRemove = {
