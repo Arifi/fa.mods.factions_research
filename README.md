@@ -1,6 +1,6 @@
-# Factions Research (UI) mod (v1.0)
+# Factions Research (Sim) mod (v1.0)
 
-This mod allows all ACU to make Upgrades allowing them to built T1 land factory of each faction :
+This mod allows ACUs to make Upgrades allowing them to built T1 land factory of another faction :
 This mod can be used with FAF client (http://www.faforever.com)
 
 ## Installation
@@ -10,3 +10,7 @@ C:\Users\USER_NAME\Documents\My Games\Gas Powered Games\Supreme Commander Forged
 or
 
 Download from the vault in FAF client
+
+## Suggestions ?
+
+Suggestions are welcome
