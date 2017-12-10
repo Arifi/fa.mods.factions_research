@@ -1,6 +1,6 @@
-name = "Factions Research"
-uid = "7c0dce67-cff6-4343-807b-28b1b48bfda5"
-version = 1
+name = "Factions Research 1.0"
+uid = "d592aae4-56ae-418b-ace6-994f5e80a0b8"
+version = 1.0
 copyright = "Gurzil"
 description = "Add Upgrade to ACU allowing them build T1 land factory of a specific faction - By Gurzil"
 author = "Gurzil"
